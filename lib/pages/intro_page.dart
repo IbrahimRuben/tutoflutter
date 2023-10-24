@@ -19,7 +19,7 @@ class _IntroPageState extends State<IntroPage> {
         titleButton = 'Conectar';
         colorButton = Colors.red;
       } else {
-        titleButton = 'Desonectar';
+        titleButton = 'Desconectar';
         colorButton = Colors.green;
       }
     });

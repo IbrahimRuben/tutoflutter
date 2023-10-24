@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutoflutter/pages/menu_page.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
@@ -21,6 +22,12 @@ class _IntroPageState extends State<IntroPage> {
       } else {
         titleButton = 'Desconectar';
         colorButton = Colors.green;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MenuPage(),
+          ),
+        );
       }
     });
   }

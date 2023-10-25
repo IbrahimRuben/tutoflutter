@@ -6,6 +6,31 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future callAlertDialog() {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Salir"),
+            content: const Text("Quieres salir de la aplicación?"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('No')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Si')),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Menu'),
@@ -17,7 +42,7 @@ class MenuPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MyMenuButton(title: "Alert Dialog", onTap: () {}),
+              MyMenuButton(title: "Alert Dialog", onTap: callAlertDialog),
               const SizedBox(height: 40),
               MyMenuButton(title: "Input", onTap: () {}),
               const SizedBox(height: 40),

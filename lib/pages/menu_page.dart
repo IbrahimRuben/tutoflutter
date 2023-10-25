@@ -10,6 +10,7 @@ class MenuPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Menu'),
         backgroundColor: Colors.orange,
+        automaticallyImplyLeading: false, //NUEVO
       ),
       body: SafeArea(
         child: Center(
@@ -18,9 +19,15 @@ class MenuPage extends StatelessWidget {
             children: [
               MyMenuButton(title: "Alert Dialog", onTap: () {}),
               const SizedBox(height: 40),
-              MyMenuButton(title: "Menu 2", onTap: () {}),
+              MyMenuButton(title: "Input", onTap: () {}),
               const SizedBox(height: 40),
-              MyMenuButton(title: "Menu 3", onTap: () {}),
+              MyMenuButton(title: "Get Value", onTap: () {}),
+              const SizedBox(height: 40),
+              MyMenuButton(title: "Parameters", onTap: () {}),
+              const SizedBox(height: 40),
+              MyMenuButton(title: "Video", onTap: () {}),
+              const SizedBox(height: 40),
+              MyMenuButton(title: "Map", onTap: () {}),
             ],
           ),
         ),

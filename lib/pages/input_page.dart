@@ -16,71 +16,73 @@ class InputPage extends StatelessWidget {
         backgroundColor: Colors.orange,
         title: const Text('Input Page'),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              MyInputField(title: 'Name: ', controller: nameController),
-              const SizedBox(height: 10),
-              MyInputField(title: 'Age:    ', controller: ageController),
-              const SizedBox(height: 60),
-              InkWell(
-                onTap: () {
-                  try {
-                    int age = int.parse(ageController.text);
-                    print(ageController.text);
-                    Provider.of<TableInput>(context, listen: false)
-                        .addItemTable(
-                      ItemTable(
-                        name: nameController.text,
-                        age: age,
-                      ),
-                    );
-                    nameController.clear();
-                    ageController.clear();
-                    print('Valor enviado');
-                  } catch (e) {
-                    print('El valor no es un numero: $e');
-                  }
-                },
-                child: Container(
-                  height: 50,
-                  width: 130,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Enter new user',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.5,
-                child: Consumer<TableInput>(
-                  builder: (context, value, child) {
-                    return ListView.builder(
-                      itemCount: value.tableList.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                              '${value.tableList[index].name}, ${value.tableList[index].age}'),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete_outline_outlined),
-                            onPressed: () =>
-                                value.removeItemTable(value.tableList[index]),
-                          ),
-                        );
-                      },
-                    );
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                MyInputField(title: 'Name: ', controller: nameController),
+                const SizedBox(height: 10),
+                MyInputField(title: 'Age:    ', controller: ageController),
+                const SizedBox(height: 60),
+                InkWell(
+                  onTap: () {
+                    try {
+                      int age = int.parse(ageController.text);
+                      print(ageController.text);
+                      Provider.of<TableInput>(context, listen: false)
+                          .addItemTable(
+                        ItemTable(
+                          name: nameController.text,
+                          age: age,
+                        ),
+                      );
+                      nameController.clear();
+                      ageController.clear();
+                      print('Valor enviado');
+                    } catch (e) {
+                      print('El valor no es un numero: $e');
+                    }
                   },
+                  child: Container(
+                    height: 50,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Enter new user',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
-              )
-            ],
+                const SizedBox(height: 40),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.5,
+                  child: Consumer<TableInput>(
+                    builder: (context, value, child) {
+                      return ListView.builder(
+                        itemCount: value.tableList.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(
+                                '${value.tableList[index].name}, ${value.tableList[index].age}'),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete_outline_outlined),
+                              onPressed: () =>
+                                  value.removeItemTable(value.tableList[index]),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -35,13 +35,20 @@ class _IntroPageState extends State<IntroPage> {
   }
 
   void connectMQTT() async {
-    bool canConnect =
-        await Provider.of<MQTTClientWrapper>(context, listen: false)
-            .connectMqttClient();
-    if (canConnect) {
-      changeConnected();
+    if (isConnected == false) {
+      bool canConnect =
+          await Provider.of<MQTTClientWrapper>(context, listen: false)
+              .connectMqttClient();
+      if (canConnect) {
+        changeConnected();
+      } else {
+        print('Error en la conexión');
+      }
     } else {
-      print('Error en la conexión');
+      Provider.of<MQTTClientWrapper>(context, listen: false)
+          .client
+          .disconnect();
+      changeConnected();
     }
   }
 

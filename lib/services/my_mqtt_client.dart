@@ -15,6 +15,7 @@ enum MqttCurrentConnectionState {
 enum MqttSubscriptionState { IDLE, SUBSCRIBED }
 
 class MQTTClientWrapper extends ChangeNotifier {
+  List<String> listaValueMensajes = [];
   MqttServerClient client = MqttServerClient.withPort(
     'ee29acde5e9c4c0aa728e6c098fddfb1.s1.eu.hivemq.cloud',
     'prueba_flutter',
@@ -74,9 +75,9 @@ class MQTTClientWrapper extends ChangeNotifier {
     print('OnConnected client callback - Client connection was sucessful');
 
     //Nos suscribimos a los tópicos necesarios
-    /*client.subscribe('writeParameters', MqttQos.atLeastOnce);
+    //client.subscribe('writeParameters', MqttQos.atLeastOnce);
     client.subscribe('Value', MqttQos.atLeastOnce);
-    client.subscribe('videoFrame', MqttQos.atLeastOnce);*/
+    //client.subscribe('videoFrame', MqttQos.atLeastOnce);
 
     // print the message when it is received
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage>> c) {
@@ -84,8 +85,8 @@ class MQTTClientWrapper extends ChangeNotifier {
       var message =
           MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
-      /*if (c[0].topic == 'Value') listaValueMensajes.add(message);
-      if (c[0].topic == 'videoFrame') {
+      if (c[0].topic == 'Value') listaValueMensajes.add(message);
+      /*if (c[0].topic == 'videoFrame') {
         lastVideoFrame = message;
         notifyListeners();
       }*/

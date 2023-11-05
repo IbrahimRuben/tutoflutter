@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tutoflutter/services/my_mqtt_client.dart';
 
 class ParametersPage extends StatefulWidget {
   const ParametersPage({super.key});
@@ -149,9 +153,17 @@ class _ParametersPageState extends State<ParametersPage> {
                     if (isCuatro!) {
                       checkBoxResult.add('Cuatro');
                     }
-                    String message =
-                        'Ciudad: $currentOption, CheckBox: $checkBoxResult, Slider Bar: $sliderValue';
-                    print(message);
+                    //String message =
+                    //    'Ciudad: $currentOption, CheckBox: $checkBoxResult, Slider Bar: $sliderValue';
+                    //print(message);
+                    Map<String, dynamic> message = {
+                      'Radio Group': currentOption,
+                      'CheckBox Group': checkBoxResult,
+                      'Slider Bar': sliderValue,
+                    };
+                    String jsonMessage = jsonEncode(message);
+                    Provider.of<MQTTClientWrapper>(context, listen: false)
+                        .publishMessage(jsonMessage, 'writeParameters');
                   },
                   child: Container(
                     height: 40,

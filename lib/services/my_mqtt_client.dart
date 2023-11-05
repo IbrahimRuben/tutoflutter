@@ -65,6 +65,15 @@ class MQTTClientWrapper extends ChangeNotifier {
     }
   }
 
+  void publishMessage(String message, String topic) {
+    final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
+    builder.addString(message);
+
+    print('Publishing message "$message" to topic $topic');
+
+    client.publishMessage(topic, MqttQos.exactlyOnce, builder.payload!);
+  }
+
   void _onDisconnected() {
     print('OnDisconnected client callback - Client disconnection');
     connectionState = MqttCurrentConnectionState.DISCONNECTED;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutoflutter/pages/intro_page.dart';
+import 'package:tutoflutter/services/my_mqtt_client.dart';
 import 'package:tutoflutter/services/table_input.dart';
 
 void main() {
@@ -12,8 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TableInput(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => TableInput(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MQTTClientWrapper(),
+        )
+      ],
       builder: (context, child) => const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: IntroPage(),

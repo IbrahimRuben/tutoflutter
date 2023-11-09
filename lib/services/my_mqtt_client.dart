@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -16,10 +14,15 @@ enum MqttSubscriptionState { IDLE, SUBSCRIBED }
 
 class MQTTClientWrapper extends ChangeNotifier {
   List<String> listaValueMensajes = [];
-  MqttServerClient client = MqttServerClient.withPort(
+  /*MqttServerClient client = MqttServerClient.withPort(
     'ee29acde5e9c4c0aa728e6c098fddfb1.s1.eu.hivemq.cloud',
     'prueba_flutter',
     8883,
+  );*/
+  MqttServerClient client = MqttServerClient.withPort(
+    'broker.emqx.io',
+    'prueba_flutter',
+    1883,
   );
 
   MqttCurrentConnectionState connectionState = MqttCurrentConnectionState.IDLE;
@@ -31,8 +34,8 @@ class MQTTClientWrapper extends ChangeNotifier {
   }
 
   void _setupMqttClient() {
-    client.secure = true;
-    client.securityContext = SecurityContext.defaultContext;
+    //client.secure = true;
+    //client.securityContext = SecurityContext.defaultContext;
     client.keepAlivePeriod = 60;
     client.onDisconnected = _onDisconnected;
     client.onConnected = _onConnected;
@@ -43,7 +46,8 @@ class MQTTClientWrapper extends ChangeNotifier {
     try {
       print('client connecting....');
       connectionState = MqttCurrentConnectionState.CONNECTING;
-      await client.connect('prueba', 'Contrase1');
+      //await client.connect('prueba', 'Contrase1');
+      await client.connect();
     } on Exception catch (e) {
       print('client exception - $e');
       connectionState = MqttCurrentConnectionState.ERROR_WHEN_CONNECTING;
@@ -87,6 +91,8 @@ class MQTTClientWrapper extends ChangeNotifier {
     //client.subscribe('writeParameters', MqttQos.atLeastOnce);
     client.subscribe('Value', MqttQos.atLeastOnce);
     //client.subscribe('videoFrame', MqttQos.atLeastOnce);
+    publishMessage('', 'Connect');
+    publishMessage('', 'getValue');
 
     // print the message when it is received
     client.updates!.listen((List<MqttReceivedMessage<MqttMessage>> c) {

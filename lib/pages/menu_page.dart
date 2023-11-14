@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tutoflutter/components/my_menu_button.dart';
 import 'package:tutoflutter/pages/input_page.dart';
 import 'package:tutoflutter/pages/parameters_page.dart';
+import 'package:tutoflutter/pages/video_page.dart';
 import 'package:tutoflutter/services/my_mqtt_client.dart';
 
 class MenuPage extends StatelessWidget {
@@ -88,7 +89,16 @@ class MenuPage extends StatelessWidget {
                         );
                       }),
                   const SizedBox(height: 40),
-                  MyMenuButton(title: "Video", onTap: () {}),
+                  MyMenuButton(
+                      title: "Video",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const VideoPage(),
+                          ),
+                        );
+                      }),
                   const SizedBox(height: 40),
                   MyMenuButton(title: "Map", onTap: () {}),
                 ],

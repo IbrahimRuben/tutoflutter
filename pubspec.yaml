@@ -33,6 +33,8 @@ dependencies:
     sdk: flutter
   provider: ^6.0.5
   mqtt_client: ^10.0.0
+  flutter_map: ^6.0.1
+  latlong2: ^0.9.0
 
 dev_dependencies:
 

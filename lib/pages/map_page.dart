@@ -14,6 +14,27 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
+  List<Marker> markers = [];
+
+  void _onMapTapped(TapPosition tapPosition, LatLng latLng) {
+    setState(() {
+      markers.add(
+        Marker(
+          width: 80,
+          height: 80,
+          point: latLng,
+          child: Transform.translate(
+            offset: const Offset(0, -16),
+            child: const Icon(
+              Icons.location_on,
+              size: 40,
+              color: Colors.red,
+            ),
+          ),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +45,15 @@ class _MapPageState extends State<MapPage> {
       ),
       body: FlutterMap(
         mapController: mapController,
-        options: const MapOptions(
-          initialCenter: LatLng(41.275946, 1.987475),
+        options: MapOptions(
+          initialCenter: const LatLng(41.275946, 1.987475),
           minZoom: 1,
           maxZoom: 18,
           initialZoom: 15,
-          interactionOptions: InteractionOptions(
+          interactionOptions: const InteractionOptions(
             enableMultiFingerGestureRace: true,
           ),
+          onTap: _onMapTapped,
         ),
         children: [
           TileLayer(
@@ -41,6 +63,9 @@ class _MapPageState extends State<MapPage> {
               'accessToken': MAPBOX_ACCESS_TOKEN,
               'id': 'mapbox/satellite-streets-v12',
             },
+          ),
+          MarkerLayer(
+            markers: [...markers],
           ),
         ],
       ),

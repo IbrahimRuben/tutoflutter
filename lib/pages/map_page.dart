@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:latlong2/latlong.dart';
 
 const MAPBOX_ACCESS_TOKEN =
@@ -55,6 +56,23 @@ class _MapPageState extends State<MapPage> {
       appBar: AppBar(
         title: const Text('Mapa'),
         backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                if (markers.isNotEmpty) {
+                  markers.removeLast();
+                  if (polylines.isNotEmpty) {
+                    polylines.removeLast();
+                  }
+                }
+              });
+            },
+            icon: const Icon(
+              Icons.backspace_rounded,
+            ),
+          ),
+        ],
       ),
       body: FlutterMap(
         mapController: mapController,
@@ -82,6 +100,24 @@ class _MapPageState extends State<MapPage> {
           ),
           PolylineLayer(
             polylines: [...polylines],
+          ),
+        ],
+      ),
+      floatingActionButton: SpeedDial(
+        backgroundColor: Colors.orange,
+        animatedIcon: AnimatedIcons.menu_close,
+        spacing: 10,
+        overlayOpacity: 0.4,
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.clear_rounded),
+            label: 'Borrar ruta',
+            onTap: () {
+              setState(() {
+                markers.clear();
+                polylines.clear();
+              });
+            },
           ),
         ],
       ),

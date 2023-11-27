@@ -15,6 +15,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   MapController mapController = MapController();
   List<Marker> markers = [];
+  List<Polyline> polylines = [];
 
   void _onMapTapped(TapPosition tapPosition, LatLng latLng) {
     setState(() {
@@ -33,6 +34,18 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
       );
+      if (markers.length > 1) {
+        polylines.add(
+          Polyline(
+            points: [
+              markers[markers.length - 2].point,
+              markers[markers.length - 1].point,
+            ],
+            strokeWidth: 2.0,
+            color: Colors.red,
+          ),
+        );
+      }
     });
   }
 
@@ -66,6 +79,9 @@ class _MapPageState extends State<MapPage> {
           ),
           MarkerLayer(
             markers: [...markers],
+          ),
+          PolylineLayer(
+            polylines: [...polylines],
           ),
         ],
       ),

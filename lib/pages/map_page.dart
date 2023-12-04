@@ -70,6 +70,26 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+  void _guardarDesdeServidor(List<dynamic> coordenadas) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.1.37:4000/data'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(coordenadas),
+      );
+
+      if (response.statusCode == 200) {
+        print("Coordenadas guardadas correctamente");
+      } else {
+        print("Error al guardar coordenadas");
+      }
+    } catch (e) {
+      print('Error al guardar: $e');
+    }
+  }
+
   void _onMapTapped(TapPosition tapPosition, LatLng latLng) {
     setState(() {
       markers.add(
@@ -161,6 +181,22 @@ class _MapPageState extends State<MapPage> {
         spacing: 10,
         overlayOpacity: 0.4,
         children: [
+          SpeedDialChild(
+            child: const Icon(Icons.save),
+            label: 'Guardar ruta',
+            onTap: () {
+              setState(() {
+                _guardarDesdeServidor(markers
+                    .map((marker) => {
+                          'lat': marker.point.latitude,
+                          'lon': marker.point.longitude,
+                        })
+                    .toList());
+                savedMarkers = List.from(markers);
+                savedPolylines = List.from(polylines);
+              });
+            },
+          ),
           SpeedDialChild(
             child: const Icon(Icons.download_rounded),
             label: 'Cargar ruta',

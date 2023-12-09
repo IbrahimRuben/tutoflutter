@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutoflutter/pages/intro_page.dart';
 import 'package:tutoflutter/services/my_mqtt_client.dart';
+import 'package:tutoflutter/services/socket_service.dart';
 import 'package:tutoflutter/services/table_input.dart';
 
 void main() {
@@ -20,7 +21,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => MQTTClientWrapper(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SocketService(),
+        ),
       ],
       builder: (context, child) => const MaterialApp(
         debugShowCheckedModeBanner: false,

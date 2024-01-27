@@ -1,16 +1,39 @@
-# tutoflutter
+# TutoFlutter
 
-A new Flutter project.
+> [!CAUTION]
+> El funcionamiento completo de esta aplicación está disponible únicamente en Android/iOS.
 
-## Getting Started
+## Descripción
+Esta aplicación forma parte de la lista de vídeos tutoriales, la cual está disponible en el siguiente [enlace](https://www.youtube.com/playlist?list=PLyAtSQhMsD4oNmhn-7U506Wyt6Txw0rWp).
 
-This project is a starting point for a Flutter application.
+## Instalación
 
-A few resources to get you started if this is your first Flutter project:
+**Paso 1:**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Descarga o clona este repositorio usando el siguiente enlace:
+```
+https://github.com/IbrahimRuben/tutoflutter.git
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Paso 2:**
+
+Ve a la carpeta raíz del proyecto y ejecuta el siguiente comando en la consola para obtener las dependencias necesarias:
+
+```
+flutter pub get
+```
+
+**Paso 3:**
+
+Ejecuta la aplicación con el siguiente comando en la consola:
+
+```
+flutter run lib/main.dart
+```
+
+> [!IMPORTANT]
+> Recuerda seleccionar el dispositivo en el que desees ejecutar la aplicación.
+
+# Recomendación sobre su uso
+
+La manera ideal de utilizar este repositorio es como apoyo al seguimiento de los [tutoriales](https://www.youtube.com/playlist?list=PLyAtSQhMsD4oNmhn-7U506Wyt6Txw0rWp), pudiendo descargar desde un principio el proyecto entero e ir viendo los cambios que se han ido haciendo en cada nuevo capítulo. Cada [commit](https://github.com/IbrahimRuben/tutoflutter/commits/main/) tiene una descripción que incluye el paso en el que estamos en respecto al tutorial y una pequeña descripción que indica qué se ha trabajado en esos cambios.
